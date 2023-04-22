@@ -28,6 +28,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.Toolkit;
 import java.awt.CardLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class VIEW {
@@ -42,9 +44,6 @@ public class VIEW {
 	private JTextField consultRGM;
 	private JTextField txtFaltas;
 	private String selected_turn;
-	
-
-	private JTextField rgm_boletim;
 	private JTable table_1;
 	private JTextField otherBoletimRGM;
 
@@ -365,293 +364,289 @@ public class VIEW {
 		tabbedPane.addTab("Boletim", null, Boletim, null);
 		Boletim.setLayout(null);
 		
+		JProgressBar bar1 = new JProgressBar();
+		bar1.setMaximum(10);
+		bar1.setBounds(46, 42, 168, 20);
+		Boletim.add(bar1);
+		
+		JLabel mat1 = new JLabel("");
+		mat1.setBounds(46, 25, 221, 14);
+		Boletim.add(mat1);
+		
+		JProgressBar bar2 = new JProgressBar();
+		bar2.setMaximum(10);
+		bar2.setBounds(46, 92, 168, 20);
+		Boletim.add(bar2);
+		
+		JLabel mat2 = new JLabel("");
+		mat2.setBounds(46, 67, 221, 14);
+		Boletim.add(mat2);
+		
+		JProgressBar bar3 = new JProgressBar();
+		bar3.setMaximum(10);
+		bar3.setBounds(46, 148, 168, 20);
+		Boletim.add(bar3);
+		
+		JLabel mat3 = new JLabel("");
+		mat3.setBounds(46, 123, 221, 14);
+		Boletim.add(mat3);
+		
+		JProgressBar bar4 = new JProgressBar();
+		bar4.setMaximum(10);
+		bar4.setBounds(46, 204, 168, 20);
+		Boletim.add(bar4);
+		
+		JLabel mat4 = new JLabel("");
+		mat4.setBounds(46, 179, 221, 14);
+		Boletim.add(mat4);
+		
+		JProgressBar bar5 = new JProgressBar();
+		bar5.setMaximum(10);
+		bar5.setBounds(46, 260, 168, 20);
+		Boletim.add(bar5);
+		
+		JLabel mat5 = new JLabel("");
+		mat5.setBounds(46, 235, 221, 14);
+		Boletim.add(mat5);
+		
+		JProgressBar bar6 = new JProgressBar();
+		bar6.setMaximum(10);
+		bar6.setBounds(46, 316, 168, 20);
+		Boletim.add(bar6);
+		
+		JLabel mat6 = new JLabel("");
+		mat6.setBounds(46, 291, 221, 14);
+		Boletim.add(mat6);
+		
+		JLabel lblNewLabel_19 = new JLabel("RGM");
+		lblNewLabel_19.setBounds(497, 11, 46, 14);
+		Boletim.add(lblNewLabel_19);
+		
+		JLabel lblNewLabel_20 = new JLabel("Faltas");
+		lblNewLabel_20.setBounds(265, 25, 46, 14);
+		Boletim.add(lblNewLabel_20);
+		
+		JLabel f1 = new JLabel("");
+		f1.setBounds(265, 48, 46, 14);
+		Boletim.add(f1);
+		
+		JLabel f2 = new JLabel("");
+		f2.setBounds(265, 92, 46, 14);
+		Boletim.add(f2);
+		
+		JLabel f3 = new JLabel("");
+		f3.setBounds(265, 148, 46, 14);
+		Boletim.add(f3);
+		
+		JLabel f4 = new JLabel("");
+		f4.setBounds(265, 204, 46, 14);
+		Boletim.add(f4);
+		
+		JLabel f5 = new JLabel("");
+		f5.setBounds(265, 255, 46, 14);
+		Boletim.add(f5);
+		
+		JLabel f6 = new JLabel("");
+		f6.setBounds(265, 316, 46, 14);
+		Boletim.add(f6);
+		
+		JLabel not1 = new JLabel("");
+		not1.setHorizontalAlignment(SwingConstants.CENTER);
+		not1.setBounds(0, 42, 46, 14);
+		Boletim.add(not1);
+		
+		JLabel not2 = new JLabel("");
+		not2.setHorizontalAlignment(SwingConstants.CENTER);
+		not2.setBounds(0, 92, 46, 14);
+		Boletim.add(not2);
+		
+		JLabel not3 = new JLabel("");
+		not3.setHorizontalAlignment(SwingConstants.CENTER);
+		not3.setBounds(0, 148, 46, 14);
+		Boletim.add(not3);
+		
+		JLabel not4 = new JLabel("");
+		not4.setHorizontalAlignment(SwingConstants.CENTER);
+		not4.setBounds(0, 204, 46, 14);
+		Boletim.add(not4);
+		
+		JLabel not5 = new JLabel("");
+		not5.setHorizontalAlignment(SwingConstants.CENTER);
+		not5.setBounds(0, 260, 46, 14);
+		Boletim.add(not5);
+		
+		JLabel not6 = new JLabel("");
+		not6.setHorizontalAlignment(SwingConstants.CENTER);
+		not6.setBounds(0, 316, 46, 14);
+		Boletim.add(not6);
+		
+		JLabel otherSemestre = new JLabel("");
+		otherSemestre.setBounds(497, 67, 129, 14);
+		Boletim.add(otherSemestre);
+		
+		JLabel boletimNome = new JLabel("");
+		boletimNome.setBounds(497, 123, 129, 14);
+		Boletim.add(boletimNome);
+		
+		
+		otherBoletimRGM = new JTextField();
+		otherBoletimRGM.setHorizontalAlignment(SwingConstants.LEFT);
+		otherBoletimRGM.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(!otherBoletimRGM.getText().isEmpty()) {
+					String rgms = otherBoletimRGM.getText();
+					try {
+						NotasDAO boletim = new NotasDAO();
+						AlunoDAO getAluno = new AlunoDAO();
+						
+						List<Notas> notas = boletim.todasNotasDeUmAluno(rgms);
+						
+						JProgressBar[] barras = {bar1, bar2, bar3,bar4,bar5,bar6};
+						JLabel[] materias = {mat1, mat2, mat3, mat4, mat5, mat6};
+						JLabel[] faltas = {f1, f2, f3, f4, f5, f6};
+						JLabel[] nots = {not1, not2, not3, not4, not5, not6};
+						
+						//pego o nome do aluno vinculado ao RGM
+						boletimNome.setText(getAluno.procurarAluno(rgms).getNome());
+						
+						int count = 0;
+						//Popula os elementos na tela
+						for(Notas n : notas) {
+							materias[count].setText(n.getMateria());
+							barras[count].setValue((int) n.getNota());
+							faltas[count].setText(String.valueOf(n.getFaltas()));
+							nots[count].setText(String.valueOf(n.getNota()).replace('.', ','));
+							
+							//verifica se estourou o limite de faltas
+							if(n.getFaltas() > 15 ) {
+								faltas[count].setForeground(Color.red);
+							}else {
+								faltas[count].setForeground(Color.black);
+							}
+							//caso a nota seja maior que o mínimo e menor que o "muito bom"
+							if(n.getNota() >= 6 && n.getNota() < 8) {
+								barras[count].setForeground(Color.yellow);
+							}
+							//abaixo do mínimo
+							if(n.getNota() < 6 ) {
+								barras[count].setForeground(Color.red);
+							}
+							//nível "muito bom"
+							if(n.getNota() > 8 ) {
+								barras[count].setForeground(Color.blue);
+							}
+							count += 1;
+							
+						}
+						//caso não tenha todas as matérias, sistema abaixo reseta para o padrão os elementos que não serão preenchidos
+						int diferenca = count - 6;
+						//JOptionPane.showMessageDialog(null, diferenca);
+	
+						
+						for(int i = 0; i < diferenca; i++) {
+							barras[count + i].setValue(0);
+							materias[count + i].setText(null);
+							faltas[count + 1].setText(null);
+						}
+						
+						//mostra o semestre
+						otherSemestre.setText(notas.get(0).getSemestre());
+					
+					}catch(Exception err) {
+						mat1.setText(null);
+						bar1.setValue(0);
+						f1.setText(null);
+						mat2.setText(null);
+						bar2.setValue(0);
+						f2.setText(null);
+						mat3.setText(null);
+						bar3.setValue(0);
+						f3.setText(null);
+						mat4.setText(null);
+						bar4.setValue(0);
+						f4.setText(null);
+						mat5.setText(null);
+						bar5.setValue(0);
+						f5.setText(null);
+						mat6.setText(null);
+						bar6.setValue(0);
+						f6.setText(null);
+						otherSemestre.setText(null);
+						JOptionPane.showMessageDialog(null, "Esse aluno não tem nenhuma nota cadastrada");
+					}
+				}
+			}
+		});
+		
+		otherBoletimRGM.setBounds(497, 36, 86, 20);
+		Boletim.add(otherBoletimRGM);
+		otherBoletimRGM.setColumns(10);
+		
+		JButton btnNewButton_3 = new JButton("New button");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(otherBoletimRGM.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Informe um RGM para realizar a consulta!");
+				}
+			}
+		});
+		btnNewButton_3.setBounds(593, 33, 33, 23);
+		Boletim.add(btnNewButton_3);
+		
+		
+		JPanel ShowAlunos = new JPanel();
+		
+		tabbedPane.addTab("Listar todos alunos", null, ShowAlunos, null);
+		ShowAlunos.setLayout(null);
+		
 		JLabel cursoAluno = new JLabel("");
 		cursoAluno.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		cursoAluno.setBounds(304, 43, 303, 33);
-		Boletim.add(cursoAluno);
+		ShowAlunos.add(cursoAluno);
 		
 	
 		
 		JLabel semestreBoletim = new JLabel("");
 		semestreBoletim.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		semestreBoletim.setBounds(72, 78, 261, 33);
-		Boletim.add(semestreBoletim);
+		ShowAlunos.add(semestreBoletim);
 		
 		DefaultTableModel tableModel = new DefaultTableModel();
+		tableModel.addColumn("RGM");
+		tableModel.addColumn("Nome");
+		tableModel.addColumn("Email");
+		tableModel.addColumn("Curso");
+		tableModel.addColumn("Campus");
+		tableModel.addColumn("Período");
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 635, 330);
+		ShowAlunos.add(scrollPane);
 		table_1 = new JTable(tableModel);
-		tableModel.addColumn("Matéria");
-		tableModel.addColumn("Nota");
-		tableModel.addColumn("Faltas");
-
-		table_1.setBounds(71, 130, 536, 172);
-		Boletim.add(table_1);
 		
-		rgm_boletim = new JTextField();
-		rgm_boletim.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				try {
-					NotasDAO boletim = new NotasDAO();
-					AlunoDAO getAluno = new AlunoDAO();
-					Aluno a = getAluno.procurarAluno(rgm_boletim.getText());
-					List<Notas> notas = boletim.todasNotasDeUmAluno(rgm_boletim.getText());
-					cursoAluno.setText(a.getCurso());
-					semestreBoletim.setText(notas.get(0).getSemestre());
-					tableModel.setRowCount(0);
-					
-					for(Notas n : notas) {
-						tableModel.insertRow(0, new Object[] { n.getMateria(), String.valueOf(n.getNota()).replace('.',','), n.getFaltas() });
-					}
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(40);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(120);
+		table_1.getColumnModel().getColumn(4).setPreferredWidth(40);
+		table_1.getColumnModel().getColumn(5).setPreferredWidth(20);
 
-				}
-				catch(Exception boletimErr) {
-					//JOptionPane.showMessageDialog(null, boletimErr.getMessage());
-				}
+
+		scrollPane.setViewportView(table_1);
+		
+		try {
+			AlunoDAO getAlunos = new AlunoDAO();
+			List<Aluno> alunos = getAlunos.todosAlunos();
+			tableModel.setRowCount(0);
+
+			//RGM, Nome, Email, Curso, Campus
+			for(Aluno aluno : alunos) {
+				tableModel.insertRow(0, new Object[] {aluno.getRGM(), aluno.getNome(), aluno.getEmail(), aluno.getCurso(), aluno.getCampus(), aluno.getTurno()});
 			}
-		});
-		
-		rgm_boletim.setToolTipText("Informe o rgm...");
-		rgm_boletim.setBounds(70, 56, 164, 20);
-		Boletim.add(rgm_boletim);
-		rgm_boletim.setColumns(10);
-		
-		JLabel lblNewLabel_11 = new JLabel("Matéria");
-		lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_11.setBounds(72, 108, 113, 14);
-		Boletim.add(lblNewLabel_11);
-		
-		JLabel lblNewLabel_12 = new JLabel("Nota");
-		lblNewLabel_12.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_12.setBounds(263, 105, 120, 14);
-		Boletim.add(lblNewLabel_12);
-		
-		JLabel lblNewLabel_17 = new JLabel("Faltas");
-		lblNewLabel_17.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_17.setBounds(433, 105, 46, 14);
-		Boletim.add(lblNewLabel_17);
-		
-		JLabel lblNewLabel_18 = new JLabel("RGM");
-		lblNewLabel_18.setBounds(71, 31, 46, 14);
-		Boletim.add(lblNewLabel_18);
-		
-		JButton btnNewButton_2 = new JButton("...");
-		btnNewButton_2.setBounds(244, 56, 46, 20);
-		Boletim.add(btnNewButton_2);
-		
-		JPanel OtherBoletim = new JPanel();
-		tabbedPane.addTab("OtherBoletim", null, OtherBoletim, null);
-		OtherBoletim.setLayout(null);
-		
-		JProgressBar bar1 = new JProgressBar();
-		bar1.setMaximum(10);
-		bar1.setBounds(46, 42, 168, 20);
-		OtherBoletim.add(bar1);
-		
-		JLabel mat1 = new JLabel("");
-		mat1.setBounds(46, 25, 221, 14);
-		OtherBoletim.add(mat1);
-		
-		JProgressBar bar2 = new JProgressBar();
-		bar2.setMaximum(10);
-		bar2.setBounds(46, 92, 168, 20);
-		OtherBoletim.add(bar2);
-		
-		JLabel mat2 = new JLabel("");
-		mat2.setBounds(46, 67, 221, 14);
-		OtherBoletim.add(mat2);
-		
-		JProgressBar bar3 = new JProgressBar();
-		bar3.setMaximum(10);
-		bar3.setBounds(46, 148, 168, 20);
-		OtherBoletim.add(bar3);
-		
-		JLabel mat3 = new JLabel("");
-		mat3.setBounds(46, 123, 221, 14);
-		OtherBoletim.add(mat3);
-		
-		JProgressBar bar4 = new JProgressBar();
-		bar4.setMaximum(10);
-		bar4.setBounds(46, 204, 168, 20);
-		OtherBoletim.add(bar4);
-		
-		JLabel mat4 = new JLabel("");
-		mat4.setBounds(46, 179, 221, 14);
-		OtherBoletim.add(mat4);
-		
-		JProgressBar bar5 = new JProgressBar();
-		bar5.setMaximum(10);
-		bar5.setBounds(46, 260, 168, 20);
-		OtherBoletim.add(bar5);
-		
-		JLabel mat5 = new JLabel("");
-		mat5.setBounds(46, 235, 221, 14);
-		OtherBoletim.add(mat5);
-		
-		JProgressBar bar6 = new JProgressBar();
-		bar6.setMaximum(10);
-		bar6.setBounds(46, 316, 168, 20);
-		OtherBoletim.add(bar6);
-		
-		JLabel mat6 = new JLabel("");
-		mat6.setBounds(46, 291, 221, 14);
-		OtherBoletim.add(mat6);
-		
-		JLabel lblNewLabel_19 = new JLabel("RGM");
-		lblNewLabel_19.setBounds(497, 11, 46, 14);
-		OtherBoletim.add(lblNewLabel_19);
-		
-		JLabel lblNewLabel_20 = new JLabel("Faltas");
-		lblNewLabel_20.setBounds(265, 25, 46, 14);
-		OtherBoletim.add(lblNewLabel_20);
-		
-		JLabel f1 = new JLabel("");
-		f1.setBounds(265, 48, 46, 14);
-		OtherBoletim.add(f1);
-		
-		JLabel f2 = new JLabel("");
-		f2.setBounds(265, 92, 46, 14);
-		OtherBoletim.add(f2);
-		
-		JLabel f3 = new JLabel("");
-		f3.setBounds(265, 148, 46, 14);
-		OtherBoletim.add(f3);
-		
-		JLabel f4 = new JLabel("");
-		f4.setBounds(265, 204, 46, 14);
-		OtherBoletim.add(f4);
-		
-		JLabel f5 = new JLabel("");
-		f5.setBounds(265, 255, 46, 14);
-		OtherBoletim.add(f5);
-		
-		JLabel f6 = new JLabel("");
-		f6.setBounds(265, 316, 46, 14);
-		OtherBoletim.add(f6);
-		
-		JLabel otherSemestre = new JLabel("");
-		otherSemestre.setBounds(497, 67, 129, 14);
-		OtherBoletim.add(otherSemestre);
-		
-		
-		otherBoletimRGM = new JTextField();
-		otherBoletimRGM.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				String rgms = otherBoletimRGM.getText();
-				try {
-					NotasDAO boletim = new NotasDAO();
 
-					List<Notas> notas = boletim.todasNotasDeUmAluno(rgms);
-					
-					//define as cores de acordo com a nota
-					if((int) notas.get(5).getNota() >= 6 && (int) notas.get(5).getNota() < 8) {
-						bar1.setForeground(Color.yellow);
-					}
-					if((int) notas.get(5).getNota() < 6 ) {
-						bar1.setForeground(Color.red);
-					}
-					if((int) notas.get(5).getNota() > 8 ) {
-						bar1.setForeground(Color.blue);
-					}
-					if((int) notas.get(4).getNota() >= 6 && (int) notas.get(4).getNota() < 8) {
-						bar2.setForeground(Color.yellow);
-					}
-					if((int) notas.get(4).getNota() < 6 ) {
-						bar2.setForeground(Color.red);
-					}
-					if((int) notas.get(4).getNota() > 8 ) {
-						bar2.setForeground(Color.blue);
-					}
-					if((int) notas.get(3).getNota() >= 6 && (int) notas.get(3).getNota() < 8) {
-						bar3.setForeground(Color.yellow);
-					}
-					if((int) notas.get(3).getNota() < 6 ) {
-						bar3.setForeground(Color.red);
-					}
-					if((int) notas.get(3).getNota() > 8 ) {
-						bar3.setForeground(Color.blue);
-					}
-					if((int) notas.get(2).getNota() >= 6 && (int) notas.get(2).getNota() < 8) {
-						bar4.setForeground(Color.yellow);
-					}
-					if((int) notas.get(2).getNota() < 6 ) {
-						bar4.setForeground(Color.red);
-					}
-					if((int) notas.get(2).getNota() > 8 ) {
-						bar4.setForeground(Color.blue);
-					}
-					if((int) notas.get(1).getNota() >= 6 && (int) notas.get(1).getNota() < 8) {
-						bar5.setForeground(Color.yellow);
-					}
-					if((int) notas.get(1).getNota() < 6 ) {
-						bar5.setForeground(Color.red);
-					}
-					if((int) notas.get(1).getNota() > 8 ) {
-						bar5.setForeground(Color.blue);
-					}
-					if((int) notas.get(0).getNota() >= 6 && (int) notas.get(0).getNota() < 8) {
-						bar6.setForeground(Color.yellow);
-					}
-					if((int) notas.get(0).getNota() < 6 ) {
-						bar6.setForeground(Color.red);
-					}
-					if((int) notas.get(0).getNota() > 8 ) {
-						bar6.setForeground(Color.blue);
-					}
-				
-					mat1.setText(notas.get(5).getMateria());
-					bar1.setValue((int) notas.get(5).getNota());
-					f1.setText(String.valueOf(notas.get(5).getFaltas()));
-					//verifica se estourou o limite de faltas
-					if(notas.get(5).getFaltas() > 15 ) {
-						f1.setForeground(Color.red);
-					}
-					mat2.setText(notas.get(4).getMateria());
-					bar2.setValue((int) notas.get(4).getNota());
-					f2.setText(String.valueOf(notas.get(4).getFaltas()));
-					if(notas.get(4).getFaltas() > 15 ) {
-						f2.setForeground(Color.red);
-					}
-					mat3.setText(notas.get(3).getMateria());
-					bar3.setValue((int) notas.get(3).getNota());
-					f3.setText(String.valueOf(notas.get(3).getFaltas()));
-					if(notas.get(3).getFaltas() > 15 ) {
-						f3.setForeground(Color.red);
-					}
-					mat4.setText(notas.get(2).getMateria());
-					bar4.setValue((int) notas.get(2).getNota());
-					f4.setText(String.valueOf(notas.get(2).getFaltas()));
-					if(notas.get(2).getFaltas() > 15 ) {
-						f4.setForeground(Color.red);
-					}
-					mat5.setText(notas.get(1).getMateria());
-					bar5.setValue((int) notas.get(1).getNota());
-					f5.setText(String.valueOf(notas.get(1).getFaltas()));
-					if(notas.get(1).getFaltas() > 15 ) {
-						f5.setForeground(Color.red);
-					}
-					mat6.setText(notas.get(0).getMateria());
-					bar6.setValue((int) notas.get(0).getNota());
-					f6.setText(String.valueOf(notas.get(0).getFaltas()));
-					if(notas.get(0).getFaltas() > 15 ) {
-						f6.setForeground(Color.red);
-					}
-					otherSemestre.setText(notas.get(0).getSemestre());
-
-				}catch(Exception err) {
-					
-				}
-
-			}
-		});
-		
-		otherBoletimRGM.setBounds(497, 36, 86, 20);
-		OtherBoletim.add(otherBoletimRGM);
-		otherBoletimRGM.setColumns(10);
-		
-		JButton btnNewButton_3 = new JButton("New button");
-		btnNewButton_3.setBounds(593, 33, 33, 23);
-		OtherBoletim.add(btnNewButton_3);
+		}
+		catch(Exception showAlunosErr) {
+			JOptionPane.showMessageDialog(null, showAlunosErr.getMessage());
+		}
 		
 		
 

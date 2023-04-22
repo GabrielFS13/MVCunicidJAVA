@@ -139,7 +139,7 @@ public class NotasDAO {
 		//listar todas as notas de um aluno específico
 		public List<Notas> todasNotasDeUmAluno(String rgm_s) throws Exception {
 			try {
-				ps = conn.prepareStatement("SELECT * FROM tb_notas WHERE rgm = ? ORDER BY nota ASC");
+				ps = conn.prepareStatement("SELECT * FROM tb_notas WHERE rgm = ? ORDER BY nota DESC");
 				ps.setString(1, rgm_s);	
 				rs = ps.executeQuery();
 				List<Notas> list = new ArrayList<Notas>();

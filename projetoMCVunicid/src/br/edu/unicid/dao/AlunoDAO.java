@@ -138,7 +138,7 @@ public class AlunoDAO {
 	//listar todos alunos cadastrados
 	public List<Aluno> todosAlunos() throws Exception {
 		try {
-			ps = conn.prepareStatement("SELECT * FROM tb_aluno");
+			ps = conn.prepareStatement("SELECT * FROM tb_aluno ORDER BY nome DESC");
 			rs = ps.executeQuery();
 			List<Aluno> list = new ArrayList<Aluno>();
 			while (rs.next()) {
