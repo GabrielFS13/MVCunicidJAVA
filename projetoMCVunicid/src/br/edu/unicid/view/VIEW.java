@@ -30,6 +30,8 @@ import java.awt.Toolkit;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 
 public class VIEW {
@@ -597,6 +599,7 @@ public class VIEW {
 		
 		JPanel ShowAlunos = new JPanel();
 		
+		
 		tabbedPane.addTab("Listar todos alunos", null, ShowAlunos, null);
 		ShowAlunos.setLayout(null);
 		
@@ -633,22 +636,26 @@ public class VIEW {
 
 		scrollPane.setViewportView(table_1);
 		
-		try {
-			AlunoDAO getAlunos = new AlunoDAO();
-			List<Aluno> alunos = getAlunos.todosAlunos();
-			tableModel.setRowCount(0);
+		ShowAlunos.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				try {
+					AlunoDAO getAlunos = new AlunoDAO();
+					List<Aluno> alunos = getAlunos.todosAlunos();
+					tableModel.setRowCount(0);
 
-			//RGM, Nome, Email, Curso, Campus
-			for(Aluno aluno : alunos) {
-				tableModel.insertRow(0, new Object[] {aluno.getRGM(), aluno.getNome(), aluno.getEmail(), aluno.getCurso(), aluno.getCampus(), aluno.getTurno()});
+					//RGM, Nome, Email, Curso, Campus
+					for(Aluno aluno : alunos) {
+						tableModel.insertRow(0, new Object[] {aluno.getRGM(), aluno.getNome(), aluno.getEmail(), aluno.getCurso(), aluno.getCampus(), aluno.getTurno()});
+					}
+
+				}
+				catch(Exception showAlunosErr) {
+					JOptionPane.showMessageDialog(null, showAlunosErr.getMessage());
+				}
+				
 			}
-
-		}
-		catch(Exception showAlunosErr) {
-			JOptionPane.showMessageDialog(null, showAlunosErr.getMessage());
-		}
-		
-		
+		});
 
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -798,7 +805,6 @@ public class VIEW {
 				
 				if(txtRGM.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Informe o RGM do aluno que deseja excluir!");
-
 				}else {
 					try {
 						AlunoDAO e_aluno = new AlunoDAO();
@@ -839,10 +845,16 @@ public class VIEW {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(consultRGM.getText().isEmpty() || txtFaltas.getText().isEmpty() || boxDisci.getSelectedItem().toString().isEmpty() ||
-						boxSemestre.getSelectedItem().toString().isEmpty() || txtNota.getText().isEmpty()
-				) {
+						boxSemestre.getSelectedItem().toString().isEmpty() || txtNota.getText().isEmpty()){
+					
 					JOptionPane.showMessageDialog(null, "Informe todos os dados!");			
-				}else {
+					
+				}else if(Float.valueOf(txtNota.getText().replace(',', '.')) > 10) {
+					JOptionPane.showMessageDialog(null, "A nota deve ser menor que 10!!!");			
+				}else if(Integer.parseInt(txtFaltas.getText()) > 255) {
+					JOptionPane.showMessageDialog(null, "o limite para faltas é 255!!!");			
+				}
+				else {
 					Notas nota = new Notas();
 					nota.setRGM(consultRGM.getText());
 					nota.setFaltas(Integer.parseInt(txtFaltas.getText()));
@@ -875,9 +887,12 @@ public class VIEW {
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(consultRGM.getText().isEmpty() || txtFaltas.getText().isEmpty() || boxDisci.getSelectedItem().toString().isEmpty() ||
-						boxSemestre.getSelectedItem().toString().isEmpty() || txtNota.getText().isEmpty()
-				) {
+						boxSemestre.getSelectedItem().toString().isEmpty() || txtNota.getText().isEmpty()){
 					JOptionPane.showMessageDialog(null, "Informe todos os dados!");			
+				}else if(Float.valueOf(txtNota.getText().replace(',', '.')) > 10){
+					JOptionPane.showMessageDialog(null, "Nota deve ser menor que 10!");	
+				}else if(Integer.parseInt(txtFaltas.getText()) > 255) {
+					JOptionPane.showMessageDialog(null, "o limite para faltas é 255!!!");			
 				}else {
 					Notas nota = new Notas();
 					nota.setRGM(consultRGM.getText());
