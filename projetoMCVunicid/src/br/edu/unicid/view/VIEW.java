@@ -277,7 +277,8 @@ public class VIEW {
 					aluno.setMunicipio(txtMunicipio.getText());
 					aluno.setEndereco(txtEndereco.getText());
 					aluno.setCpf(txtCpf.getText());
-					aluno.setNascimento(txtData.getText());
+					String nasc[] = txtData.getText().split("/");
+					aluno.setNascimento(nasc[2] + "-" +nasc[1] + "-" + nasc[0]);
 					aluno.setCampus(boxCampus.getSelectedItem().toString());
 					aluno.setCurso(boxCurso.getSelectedItem().toString());
 					aluno.setUf(boxUf.getSelectedItem().toString());
@@ -304,7 +305,8 @@ public class VIEW {
 					txtNome.setText(aluno.getNome());
 					txtEmail.setText(aluno.getEmail());
 					txtCelular.setText(aluno.getCell());
-					txtData.setText(aluno.getNascimento());
+					String nasc[] = aluno.getNascimento().split("-");
+					txtData.setText(nasc[2] + "/" +nasc[1] + "/" + nasc[0]);
 					txtCpf.setText(aluno.getCpf());
 					txtEndereco.setText(aluno.getEndereco());
 					boxUf.setSelectedItem(aluno.getUf());
@@ -486,6 +488,7 @@ public class VIEW {
 		NotasEfaltas.add(btnLista_1);
 
 		JFormattedTextField txtNota = new JFormattedTextField(new MaskFormatter("##,##"));
+		txtNota.setFocusLostBehavior(JFormattedTextField.REVERT);
 		txtNota.setBounds(246, 205, 58, 20);
 		NotasEfaltas.add(txtNota);
 
@@ -818,7 +821,8 @@ public class VIEW {
 					aluno.setMunicipio(txtMunicipio.getText());
 					aluno.setEndereco(txtEndereco.getText());
 					aluno.setCpf(txtCpf.getText());
-					aluno.setNascimento(txtData.getText());
+					String nasc[] = txtData.getText().split("/");
+					aluno.setNascimento(nasc[2] + "-" +nasc[1] + "-" + nasc[0]);
 					aluno.setCampus(boxCampus.getSelectedItem().toString());
 					aluno.setCurso(boxCurso.getSelectedItem().toString());
 					aluno.setUf(boxUf.getSelectedItem().toString());
@@ -896,7 +900,8 @@ public class VIEW {
 					txtNome.setText(aluno.getNome());
 					txtEmail.setText(aluno.getEmail());
 					txtCelular.setText(aluno.getCell());
-					txtData.setText(aluno.getNascimento());
+					String nasc[] = aluno.getNascimento().split("-");
+					txtData.setText(nasc[2] + "/" +nasc[1] + "/" + nasc[0]);
 					txtCpf.setText(aluno.getCpf());
 					txtEndereco.setText(aluno.getEndereco());
 					boxUf.setSelectedItem(aluno.getUf());
