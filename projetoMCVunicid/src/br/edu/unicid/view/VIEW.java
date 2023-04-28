@@ -357,7 +357,8 @@ public class VIEW {
 					aluno.setMunicipio(txtMunicipio.getText());
 					aluno.setEndereco(txtEndereco.getText());
 					aluno.setCpf(txtCpf.getText());
-					aluno.setNascimento(txtData.getText());
+					String nasc[] = txtData.getText().split("/");
+					aluno.setNascimento(nasc[2] + "-" +nasc[1] + "-" + nasc[0]);
 					aluno.setCampus(boxCampus.getSelectedItem().toString());
 					aluno.setCurso(boxCurso.getSelectedItem().toString());
 					aluno.setUf(boxUf.getSelectedItem().toString());
@@ -874,7 +875,8 @@ public class VIEW {
 					aluno.setMunicipio(txtMunicipio.getText());
 					aluno.setEndereco(txtEndereco.getText());
 					aluno.setCpf(txtCpf.getText());
-					aluno.setNascimento(txtData.getText());
+					String nasc[] = txtData.getText().split("/");
+					aluno.setNascimento(nasc[2] + "-" +nasc[1] + "-" + nasc[0]);
 					aluno.setCampus(boxCampus.getSelectedItem().toString());
 					aluno.setCurso(boxCurso.getSelectedItem().toString());
 					aluno.setUf(boxUf.getSelectedItem().toString());
