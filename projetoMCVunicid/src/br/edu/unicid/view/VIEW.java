@@ -1172,8 +1172,8 @@ public class VIEW {
 				JOptionPane.showMessageDialog(null,
 								"Projeto MVC em Java \n" + "Integrantes do grupo: \n" 
 								+ "Gabriel Falcão G Carvalho \n"
-								+ "Victor Custodio \n"
-								+ "João Romano \n" 
+								+ "Victor Custodio Lucas\n"
+								+ "João Vitor de Jesus Romano \n" 
 								+ "Felipe Larrea \n" 
 								+ "Richard Henry Hartmann \n"
 								+ "Gustavo Rodrigues Lobo \n"
