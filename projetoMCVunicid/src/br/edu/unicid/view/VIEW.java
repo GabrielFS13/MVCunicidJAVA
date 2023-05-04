@@ -151,6 +151,7 @@ public class VIEW {
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_5.setBounds(198, 236, 46, 14);
 		DadosPessoais.add(lblNewLabel_5);
+		
 
 		JComboBox<?> boxUf = new JComboBox();
 		boxUf.setModel(new DefaultComboBoxModel(
@@ -240,7 +241,8 @@ public class VIEW {
 		bg.add(vesperino);
 		bg.add(matutino);
 
-		JButton btnNewButton = new JButton("Deleta");
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(VIEW.class.getResource("/br/edu/unicid/view/icons8-remover-40.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (txtRGM.getText().isEmpty()) {
@@ -254,7 +256,8 @@ public class VIEW {
 		btnNewButton.setBounds(43, 204, 100, 100);
 		Curso.add(btnNewButton);
 
-		JButton btnSalva = new JButton("Salva");
+		JButton btnSalva = new JButton("");
+		btnSalva.setIcon(new ImageIcon(VIEW.class.getResource("/br/edu/unicid/view/icons8-salvar-40.png")));
 		btnSalva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -292,7 +295,8 @@ public class VIEW {
 		btnSalva.setBounds(153, 204, 100, 100);
 		Curso.add(btnSalva);
 
-		JButton btnLista = new JButton("Consultar");
+		JButton btnLista = new JButton("");
+		btnLista.setIcon(new ImageIcon(VIEW.class.getResource("/br/edu/unicid/view/icons8-pesquisar-50.png")));
 		btnLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (txtRGM.getText().isEmpty()) {
@@ -336,7 +340,8 @@ public class VIEW {
 		btnLista.setBounds(263, 204, 100, 100);
 		Curso.add(btnLista);
 
-		JButton btnAtualiza = new JButton("Atualiza");
+		JButton btnAtualiza = new JButton("");
+		btnAtualiza.setIcon(new ImageIcon(VIEW.class.getResource("/br/edu/unicid/view/icons8-swap-paths-48.png")));
 		btnAtualiza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (txtRGM.getText().isEmpty() || txtNome.getText().isEmpty() || txtEmail.getText().isEmpty()
@@ -368,11 +373,13 @@ public class VIEW {
 
 				}
 			}
+			
 		});
 		btnAtualiza.setBounds(374, 204, 100, 100);
 		Curso.add(btnAtualiza);
 
-		JButton btnNemIdeia = new JButton("Novo");
+		JButton btnNemIdeia = new JButton("");
+		btnNemIdeia.setIcon(new ImageIcon(VIEW.class.getResource("/br/edu/unicid/view/icons8-clear-58.png")));
 		btnNemIdeia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtRGM.setText(null);
@@ -417,6 +424,7 @@ public class VIEW {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				Aluno a = searchNota(consultRGM.getText());
+				
 				labelAluno.setText(a.getNome());
 				labelCursoAluno.setText(a.getCurso());
 			}
@@ -463,7 +471,8 @@ public class VIEW {
 		NotasEfaltas.add(txtFaltas);
 		txtFaltas.setColumns(10);
 
-		JButton btnNewButton_1 = new JButton("Deleta");
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setIcon(new ImageIcon(VIEW.class.getResource("/br/edu/unicid/view/icons8-remover-40.png")));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (boxDisci.getSelectedItem().toString().isEmpty() || consultRGM.getText().isEmpty()) {
@@ -476,20 +485,20 @@ public class VIEW {
 				}
 			}
 		});
-		btnNewButton_1.setBounds(22, 237, 100, 100);
+		btnNewButton_1.setBounds(10, 237, 100, 100);
 		NotasEfaltas.add(btnNewButton_1);
 
-		JButton btnLista_1 = new JButton("Lista");
+		JButton btnLista_1 = new JButton("");
+		btnLista_1.setIcon(new ImageIcon(VIEW.class.getResource("/br/edu/unicid/view/icons8-pesquisar-50.png")));
 		btnLista_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "Basta informar o RGM no campo acima!");
 			}
 		});
-		btnLista_1.setBounds(246, 237, 100, 100);
+		btnLista_1.setBounds(278, 237, 100, 100);
 		NotasEfaltas.add(btnLista_1);
 
 		JFormattedTextField txtNota = new JFormattedTextField(new MaskFormatter("##,##"));
-		txtNota.setFocusLostBehavior(JFormattedTextField.REVERT);
 		txtNota.setBounds(246, 205, 58, 20);
 		NotasEfaltas.add(txtNota);
 
@@ -686,7 +695,7 @@ public class VIEW {
 								barras[count].setForeground(Color.red);
 							}
 							// nível "muito bom"
-							if (n.getNota() > 8) {
+							if (n.getNota() >= 8) {
 								barras[count].setForeground(Color.blue);
 							}
 							count += 1;
@@ -802,7 +811,8 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Salvar");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				//verifica se o campo está vazio
 				if (txtRGM.getText().isEmpty() || txtNome.getText().isEmpty() || txtEmail.getText().isEmpty()
 						|| txtCelular.getText().isEmpty() || txtMunicipio.getText().isEmpty()
 						|| txtEndereco.getText().isEmpty() || txtCpf.getText().isEmpty() || txtData.getText().isEmpty()
@@ -811,7 +821,8 @@ public class VIEW {
 						|| boxUf.getSelectedItem().toString().isEmpty() || selected_turn.isEmpty()) {
 
 					JOptionPane.showMessageDialog(null, "Preecha todos os campos (incluindo os da aba curso)");
-
+					
+				//roda caso todos os campos estejam preenchidos
 				} else {
 
 					Aluno aluno = new Aluno();
@@ -837,7 +848,8 @@ public class VIEW {
 		mntmNewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
 		mnNewMenu.add(mntmNewMenuItem);
 
-		JButton btnNemIdeia_1 = new JButton("Novo");
+		JButton btnNemIdeia_1 = new JButton("");
+		btnNemIdeia_1.setIcon(new ImageIcon(VIEW.class.getResource("/br/edu/unicid/view/icons8-clear-58.png")));
 		btnNemIdeia_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				consultRGM.setText(null);
@@ -850,13 +862,14 @@ public class VIEW {
 			}
 		});
 
-		btnNemIdeia_1.setBounds(466, 237, 100, 100);
+		btnNemIdeia_1.setBounds(545, 237, 100, 100);
 		NotasEfaltas.add(btnNemIdeia_1);
 
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Alterar");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				//verifica se os campos estão preenchidos
 				if (txtRGM.getText().isEmpty() || txtNome.getText().isEmpty() || txtEmail.getText().isEmpty()
 						|| txtCelular.getText().isEmpty() || txtMunicipio.getText().isEmpty()
 						|| txtEndereco.getText().isEmpty() || txtCpf.getText().isEmpty() || txtData.getText().isEmpty()
@@ -865,8 +878,10 @@ public class VIEW {
 						|| boxUf.getSelectedItem().toString().isEmpty() || selected_turn.isEmpty()) {
 
 					JOptionPane.showMessageDialog(null, "Preecha todos os campos (incluindo os da aba curso)");
-
+					
+				//executa casos todos os campos estejam preenchidos
 				} else {
+					//instancia o aluno
 					Aluno aluno = new Aluno();
 					aluno.setRGM(txtRGM.getText());
 					aluno.setNome(txtNome.getText());
@@ -881,7 +896,8 @@ public class VIEW {
 					aluno.setCurso(boxCurso.getSelectedItem().toString());
 					aluno.setUf(boxUf.getSelectedItem().toString());
 					aluno.setTurno(selected_turn);
-
+					
+					//função que instacia o objeto de query do banco de dados
 					attAluno(aluno);
 
 				}
@@ -892,12 +908,18 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Consultar");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//verifica se está vazio
 				if (txtRGM.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Informe um RGM para realizar a consulta!");
 					txtRGM.setBorder(BorderFactory.createLineBorder(Color.red));
+				//instacia o objeto aluno para realizar a consulta
 				} else {
 					txtRGM.setBorder(BorderFactory.createLineBorder(Color.black));
+					
+					//busca o aluno no banco de dados
 					Aluno aluno = searchAluno(txtRGM.getText());
+					
 					// mostra as infos do aluno vinculado ao rgm fornecido
 					txtNome.setText(aluno.getNome());
 					txtEmail.setText(aluno.getEmail());
@@ -935,10 +957,11 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Excluir");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				//verifica se está vazio
 				if (txtRGM.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Informe o RGM do aluno que deseja excluir!");
 				} else {
+					//função que deleta o aluno
 					delAluno(txtRGM.getText());
 				}
 			}
@@ -951,6 +974,7 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Sair");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//fecha o programa
 				System.exit(0);
 			}
 		});
@@ -964,17 +988,21 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Salvar");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				//verifica se está vazio
 				if (consultRGM.getText().isEmpty() || txtFaltas.getText().isEmpty()
 						|| boxDisci.getSelectedItem().toString().isEmpty()
 						|| boxSemestre.getSelectedItem().toString().isEmpty() || txtNota.getText().isEmpty()) {
 
 					JOptionPane.showMessageDialog(null, "Informe todos os dados!");
-
+					
+					//verifica se o valor é mais que a nota máxima permitida
 				} else if (Float.valueOf(txtNota.getText().replace(',', '.')) > 10) {
 					JOptionPane.showMessageDialog(null, "A nota deve ser menor que 10!!!");
+					//verifica o limite de faltas que cabem no banco de dados
 				} else if (Integer.parseInt(txtFaltas.getText()) > 255) {
 					JOptionPane.showMessageDialog(null, "o limite para faltas é 255!!!");
+					//instacia o objeto Nota
 				} else {
 					Notas nota = new Notas();
 					nota.setRGM(consultRGM.getText());
@@ -982,7 +1010,8 @@ public class VIEW {
 					nota.setMateria(boxDisci.getSelectedItem().toString());
 					nota.setSemestre(boxSemestre.getSelectedItem().toString());
 					nota.setNota(Float.parseFloat(String.valueOf(txtNota.getText().replace(',', '.'))));
-
+					
+					//salva a nota no banco de dados
 					criaNota(nota);
 				}
 			}
@@ -992,15 +1021,20 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Alterar");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//verifica se está vazio
 				if (consultRGM.getText().isEmpty() || txtFaltas.getText().isEmpty()
 						|| boxDisci.getSelectedItem().toString().isEmpty()
 						|| boxSemestre.getSelectedItem().toString().isEmpty() || txtNota.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Informe todos os dados!");
+					
+					//verifica se é maior que a nota permitida
 				} else if (Float.valueOf(txtNota.getText().replace(',', '.')) > 10) {
 					JOptionPane.showMessageDialog(null, "Nota deve ser menor que 10!");
+					//valida se é mais que o permitido no banco de dados
 				} else if (Integer.parseInt(txtFaltas.getText()) > 255) {
 					JOptionPane.showMessageDialog(null, "o limite para faltas é 255!!!");
 				} else {
+					//instancia o objeto nota 
 					Notas nota = new Notas();
 					nota.setRGM(consultRGM.getText());
 					nota.setFaltas(Integer.parseInt(txtFaltas.getText()));
@@ -1008,6 +1042,7 @@ public class VIEW {
 					nota.setSemestre(boxSemestre.getSelectedItem().toString());
 					nota.setNota(Float.parseFloat(txtNota.getText().replace(',', '.')));
 
+					//chama e executa a função que vai atualizar a nota do aluno
 					attNota(nota);
 
 				}
@@ -1019,8 +1054,11 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Excluir");
 		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//verifica se está preenchido
 				if (boxDisci.getSelectedItem().toString().isEmpty() || consultRGM.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Informe a matéria e o RGM que deseja excluir!");
+					//executa a query que excluirá a nota do aluno informado.
 				} else {
 					String mat = boxDisci.getSelectedItem().toString();
 					String rgm_s = consultRGM.getText();
@@ -1034,12 +1072,14 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Consultar");
 		mntmNewMenuItem_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//aviso falando como deve ser realizada a consulta
 				JOptionPane.showMessageDialog(null,
 						"Basta informar o RGM no campo 'RGM' em 'Notas e Faltas', caso queira todas as notas, vá até o boletim");
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_8);
-		JButton btnSalva_1 = new JButton("Salva");
+		JButton btnSalva_1 = new JButton("");
+		btnSalva_1.setIcon(new ImageIcon(VIEW.class.getResource("/br/edu/unicid/view/icons8-salvar-40.png")));
 		btnSalva_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -1065,13 +1105,14 @@ public class VIEW {
 				}
 			}
 		});
-		btnSalva_1.setBounds(132, 237, 100, 100);
+		btnSalva_1.setBounds(145, 237, 100, 100);
 		NotasEfaltas.add(btnSalva_1);
 
 		JMenu mnNewMenu_2 = new JMenu("Ajuda");
 		menuBar.add(mnNewMenu_2);
 
-		JButton btnAtualiza_1 = new JButton("Atualiza");
+		JButton btnAtualiza_1 = new JButton("");
+		btnAtualiza_1.setIcon(new ImageIcon(VIEW.class.getResource("/br/edu/unicid/view/icons8-swap-paths-48.png")));
 		btnAtualiza_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (consultRGM.getText().isEmpty() || txtFaltas.getText().isEmpty()
@@ -1095,7 +1136,7 @@ public class VIEW {
 				}
 			}
 		});
-		btnAtualiza_1.setBounds(356, 237, 100, 100);
+		btnAtualiza_1.setBounds(410, 237, 100, 100);
 		NotasEfaltas.add(btnAtualiza_1);
 
 		boxDisci.addActionListener(new ActionListener() {
@@ -1129,8 +1170,14 @@ public class VIEW {
 		mntmNewMenuItem_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null,
-						"Projeto MVC em Java \n" + "Integrantes do grupo: \n" + "Gabriel Falcão G Carvalho \n"
-								+ "Victor Custodio \n" + "João Romano \n" + "Alexandre \n" + "Richard \n");
+								"Projeto MVC em Java \n" + "Integrantes do grupo: \n" 
+								+ "Gabriel Falcão G Carvalho \n"
+								+ "Victor Custodio \n"
+								+ "João Romano \n" 
+								+ "Felipe Larrea \n" 
+								+ "Richard Henry Hartmann \n"
+								+ "Gustavo Rodrigues Lobo \n"
+								+ "Endrew Bernardo Barbosa");
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_9);
@@ -1180,6 +1227,9 @@ public class VIEW {
 		try {
 			AlunoDAO dao = new AlunoDAO();
 			Aluno aluno = dao.procurarAluno(rgm);
+			if(aluno == null) {
+				JOptionPane.showMessageDialog(null, "Não existe nenhum aluno cadastrado com esse RGM!");
+			}
 
 			return aluno;
 
