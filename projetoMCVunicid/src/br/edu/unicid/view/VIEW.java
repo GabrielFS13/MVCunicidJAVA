@@ -1174,7 +1174,7 @@ public class VIEW {
 								+ "Gabriel Falcão G Carvalho \n"
 								+ "Victor Custodio Lucas\n"
 								+ "João Vitor de Jesus Romano \n" 
-								+ "Felipe Larrea \n" 
+								+ "Felipe Larrea de Souza \n" 
 								+ "Richard Henry Hartmann \n"
 								+ "Gustavo Rodrigues Lobo \n"
 								+ "Endrew Bernardo Barbosa");
