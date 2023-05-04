@@ -14,7 +14,7 @@ public class ConnectionFactory {
 
 			// estabelece a conexao e retorna uma conexao
 
-			String url = "jdbc:mysql://localhost:3306/grupoLambda";
+			String url = "jdbc:mysql://localhost:3306/grupolambda";
 			String login = "root";
 			String senha = "";
 			return DriverManager.getConnection(url,login,senha);
