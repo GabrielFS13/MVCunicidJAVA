@@ -151,7 +151,6 @@ public class VIEW {
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_5.setBounds(198, 236, 46, 14);
 		DadosPessoais.add(lblNewLabel_5);
-		
 
 		JComboBox<?> boxUf = new JComboBox();
 		boxUf.setModel(new DefaultComboBoxModel(
@@ -270,7 +269,20 @@ public class VIEW {
 
 					JOptionPane.showMessageDialog(null, "Preecha todos os campos (incluindo os da aba curso)");
 
-				} else {
+					// valida o tamnho dos campos
+				} else if (txtRGM.getText().length() > 10) {
+					JOptionPane.showMessageDialog(null, "O RGM deve conter no máximo 10 caracteres!!!");
+				} else if (txtNome.getText().length() > 120) {
+					JOptionPane.showMessageDialog(null, "O nome deve conter no máximo 120 caracteres!!!");
+				} else if (txtEmail.getText().length() > 256) {
+					JOptionPane.showMessageDialog(null, "O email deve conter no máximo 256 caracteres!!!");
+				} else if (txtMunicipio.getText().length() > 40) {
+					JOptionPane.showMessageDialog(null, "O município deve conter no máximo 40 caracteres!!!");
+				}else if(!txtEmail.getText().contains("@") || !txtEmail.getText().contains(".")) {
+					JOptionPane.showMessageDialog(null, "Insira um email válido! example@example.example");
+				} 
+				// executa caso todos os campoes estejam de acordo com a regra de negócios
+				else {
 
 					Aluno aluno = new Aluno();
 					aluno.setRGM(txtRGM.getText());
@@ -281,7 +293,7 @@ public class VIEW {
 					aluno.setEndereco(txtEndereco.getText());
 					aluno.setCpf(txtCpf.getText());
 					String nasc[] = txtData.getText().split("/");
-					aluno.setNascimento(nasc[2] + "-" +nasc[1] + "-" + nasc[0]);
+					aluno.setNascimento(nasc[2] + "-" + nasc[1] + "-" + nasc[0]);
 					aluno.setCampus(boxCampus.getSelectedItem().toString());
 					aluno.setCurso(boxCurso.getSelectedItem().toString());
 					aluno.setUf(boxUf.getSelectedItem().toString());
@@ -310,7 +322,7 @@ public class VIEW {
 					txtEmail.setText(aluno.getEmail());
 					txtCelular.setText(aluno.getCell());
 					String nasc[] = aluno.getNascimento().split("-");
-					txtData.setText(nasc[2] + "/" +nasc[1] + "/" + nasc[0]);
+					txtData.setText(nasc[2] + "/" + nasc[1] + "/" + nasc[0]);
 					txtCpf.setText(aluno.getCpf());
 					txtEndereco.setText(aluno.getEndereco());
 					boxUf.setSelectedItem(aluno.getUf());
@@ -353,7 +365,18 @@ public class VIEW {
 
 					JOptionPane.showMessageDialog(null, "Preecha todos os campos (incluindo os da aba curso)");
 
-				} else {
+				}else if (txtRGM.getText().length() > 10) {
+					JOptionPane.showMessageDialog(null, "O RGM deve conter no máximo 10 caracteres!!!");
+				} else if (txtNome.getText().length() > 120) {
+					JOptionPane.showMessageDialog(null, "O nome deve conter no máximo 120 caracteres!!!");
+				} else if (txtEmail.getText().length() > 256) {
+					JOptionPane.showMessageDialog(null, "O email deve conter no máximo 256 caracteres!!!");
+				} else if (txtMunicipio.getText().length() > 40) {
+					JOptionPane.showMessageDialog(null, "O município deve conter no máximo 40 caracteres!!!");
+				}else if(!txtEmail.getText().contains("@") || !txtEmail.getText().contains(".")) {
+					JOptionPane.showMessageDialog(null, "Insira um email válido! example@example.example");
+				} 
+				else {
 					Aluno aluno = new Aluno();
 					aluno.setRGM(txtRGM.getText());
 					aluno.setNome(txtNome.getText());
@@ -363,7 +386,7 @@ public class VIEW {
 					aluno.setEndereco(txtEndereco.getText());
 					aluno.setCpf(txtCpf.getText());
 					String nasc[] = txtData.getText().split("/");
-					aluno.setNascimento(nasc[2] + "-" +nasc[1] + "-" + nasc[0]);
+					aluno.setNascimento(nasc[2] + "-" + nasc[1] + "-" + nasc[0]);
 					aluno.setCampus(boxCampus.getSelectedItem().toString());
 					aluno.setCurso(boxCurso.getSelectedItem().toString());
 					aluno.setUf(boxUf.getSelectedItem().toString());
@@ -373,7 +396,7 @@ public class VIEW {
 
 				}
 			}
-			
+
 		});
 		btnAtualiza.setBounds(374, 204, 100, 100);
 		Curso.add(btnAtualiza);
@@ -424,7 +447,7 @@ public class VIEW {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				Aluno a = searchNota(consultRGM.getText());
-				
+
 				labelAluno.setText(a.getNome());
 				labelCursoAluno.setText(a.getCurso());
 			}
@@ -520,23 +543,30 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Salvar");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//verifica se o campo está vazio
+
+				// verifica se o campo está vazio
 				if (txtRGM.getText().isEmpty() || txtNome.getText().isEmpty() || txtEmail.getText().isEmpty()
 						|| txtCelular.getText().isEmpty() || txtMunicipio.getText().isEmpty()
 						|| txtEndereco.getText().isEmpty() || txtCpf.getText().isEmpty() || txtData.getText().isEmpty()
 						|| boxCampus.getSelectedItem().toString().isEmpty()
 						|| boxCurso.getSelectedItem().toString().isEmpty()
-						|| boxUf.getSelectedItem().toString().isEmpty() || selected_turn.isEmpty()) {
+						|| boxUf.getSelectedItem().toString().isEmpty() || selected_turn == null || selected_turn == "") {
 
 					JOptionPane.showMessageDialog(null, "Preecha todos os campos (incluindo os da aba curso)");
-					
-				//roda caso todos os campos estejam preenchidos
-				}else if(txtRGM.getText().length() > 10) {
+
+					// valida tamanho máximo de cada campo de acordo com o banco de dados
+				} else if (txtRGM.getText().length() > 10) {
 					JOptionPane.showMessageDialog(null, "O RGM deve conter no máximo 10 caracteres!!!");
-				}else if(txtNome.getText().length() > 120) {
+				} else if (txtNome.getText().length() > 120) {
 					JOptionPane.showMessageDialog(null, "O nome deve conter no máximo 120 caracteres!!!");
-				}
+				} else if (txtEmail.getText().length() > 256) {
+					JOptionPane.showMessageDialog(null, "O email deve conter no máximo 256 caracteres!!!");
+				} else if (txtMunicipio.getText().length() > 40) {
+					JOptionPane.showMessageDialog(null, "O município deve conter no máximo 40 caracteres!!!");
+				}else if(!txtEmail.getText().contains("@") || !txtEmail.getText().contains(".")) {
+					JOptionPane.showMessageDialog(null, "Insira um email válido! example@example.example");
+				} 
+				// roda caso todos os campos estejam preenchidos
 				else {
 
 					Aluno aluno = new Aluno();
@@ -548,7 +578,7 @@ public class VIEW {
 					aluno.setEndereco(txtEndereco.getText());
 					aluno.setCpf(txtCpf.getText());
 					String nasc[] = txtData.getText().split("/");
-					aluno.setNascimento(nasc[2] + "-" +nasc[1] + "-" + nasc[0]);
+					aluno.setNascimento(nasc[2] + "-" + nasc[1] + "-" + nasc[0]);
 					aluno.setCampus(boxCampus.getSelectedItem().toString());
 					aluno.setCurso(boxCurso.getSelectedItem().toString());
 					aluno.setUf(boxUf.getSelectedItem().toString());
@@ -582,8 +612,8 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Alterar");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//verifica se os campos estão preenchidos
+
+				// verifica se os campos estão preenchidos
 				if (txtRGM.getText().isEmpty() || txtNome.getText().isEmpty() || txtEmail.getText().isEmpty()
 						|| txtCelular.getText().isEmpty() || txtMunicipio.getText().isEmpty()
 						|| txtEndereco.getText().isEmpty() || txtCpf.getText().isEmpty() || txtData.getText().isEmpty()
@@ -592,10 +622,21 @@ public class VIEW {
 						|| boxUf.getSelectedItem().toString().isEmpty() || selected_turn.isEmpty()) {
 
 					JOptionPane.showMessageDialog(null, "Preecha todos os campos (incluindo os da aba curso)");
-					
-				//executa casos todos os campos estejam preenchidos
-				} else {
-					//instancia o aluno
+
+					// executa casos todos os campos estejam preenchidos
+				}else if (txtRGM.getText().length() > 10) {
+					JOptionPane.showMessageDialog(null, "O RGM deve conter no máximo 10 caracteres!!!");
+				} else if (txtNome.getText().length() > 120) {
+					JOptionPane.showMessageDialog(null, "O nome deve conter no máximo 120 caracteres!!!");
+				} else if (txtEmail.getText().length() > 256) {
+					JOptionPane.showMessageDialog(null, "O email deve conter no máximo 256 caracteres!!!");
+				} else if (txtMunicipio.getText().length() > 40) {
+					JOptionPane.showMessageDialog(null, "O município deve conter no máximo 40 caracteres!!!");
+				}else if(!txtEmail.getText().contains("@") || !txtEmail.getText().contains(".")) {
+					JOptionPane.showMessageDialog(null, "Insira um email válido! example@example.example");
+				} 
+				else {
+					// instancia o aluno
 					Aluno aluno = new Aluno();
 					aluno.setRGM(txtRGM.getText());
 					aluno.setNome(txtNome.getText());
@@ -605,13 +646,13 @@ public class VIEW {
 					aluno.setEndereco(txtEndereco.getText());
 					aluno.setCpf(txtCpf.getText());
 					String nasc[] = txtData.getText().split("/");
-					aluno.setNascimento(nasc[2] + "-" +nasc[1] + "-" + nasc[0]);
+					aluno.setNascimento(nasc[2] + "-" + nasc[1] + "-" + nasc[0]);
 					aluno.setCampus(boxCampus.getSelectedItem().toString());
 					aluno.setCurso(boxCurso.getSelectedItem().toString());
 					aluno.setUf(boxUf.getSelectedItem().toString());
 					aluno.setTurno(selected_turn);
-					
-					//função que instacia o objeto de query do banco de dados
+
+					// função que instacia o objeto de query do banco de dados
 					attAluno(aluno);
 
 				}
@@ -622,24 +663,24 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Consultar");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//verifica se está vazio
+
+				// verifica se está vazio
 				if (txtRGM.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Informe um RGM para realizar a consulta!");
 					txtRGM.setBorder(BorderFactory.createLineBorder(Color.red));
-				//instacia o objeto aluno para realizar a consulta
+					// instacia o objeto aluno para realizar a consulta
 				} else {
 					txtRGM.setBorder(BorderFactory.createLineBorder(Color.black));
-					
-					//busca o aluno no banco de dados
+
+					// busca o aluno no banco de dados
 					Aluno aluno = searchAluno(txtRGM.getText());
-					
+
 					// mostra as infos do aluno vinculado ao rgm fornecido
 					txtNome.setText(aluno.getNome());
 					txtEmail.setText(aluno.getEmail());
 					txtCelular.setText(aluno.getCell());
 					String nasc[] = aluno.getNascimento().split("-");
-					txtData.setText(nasc[2] + "/" +nasc[1] + "/" + nasc[0]);
+					txtData.setText(nasc[2] + "/" + nasc[1] + "/" + nasc[0]);
 					txtCpf.setText(aluno.getCpf());
 					txtEndereco.setText(aluno.getEndereco());
 					boxUf.setSelectedItem(aluno.getUf());
@@ -671,12 +712,25 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Excluir");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//verifica se está vazio
+				// verifica se está vazio
 				if (txtRGM.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Informe o RGM do aluno que deseja excluir!");
 				} else {
-					//função que deleta o aluno
+					// função que deleta o aluno
 					delAluno(txtRGM.getText());
+					
+					txtRGM.setText(null);
+					txtNome.setText(null);
+					txtEmail.setText(null);
+					txtCelular.setText(null);
+					txtMunicipio.setText(null);
+					txtEndereco.setText(null);
+					txtCpf.setText(null);
+					txtData.setText(null);
+					boxCampus.setSelectedIndex(0);
+					boxCurso.setSelectedIndex(0);
+					boxUf.setSelectedIndex(0);
+					bg.clearSelection();
 				}
 			}
 		});
@@ -688,7 +742,7 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Sair");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//fecha o programa
+				// fecha o programa
 				System.exit(0);
 			}
 		});
@@ -702,21 +756,21 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Salvar");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//verifica se está vazio
+
+				// verifica se está vazio
 				if (consultRGM.getText().isEmpty() || txtFaltas.getText().isEmpty()
 						|| boxDisci.getSelectedItem().toString().isEmpty()
 						|| boxSemestre.getSelectedItem().toString().isEmpty() || txtNota.getText().isEmpty()) {
 
 					JOptionPane.showMessageDialog(null, "Informe todos os dados!");
-					
-					//verifica se o valor é mais que a nota máxima permitida
+
+					// verifica se o valor é mais que a nota máxima permitida
 				} else if (Float.valueOf(txtNota.getText().replace(',', '.')) > 10) {
 					JOptionPane.showMessageDialog(null, "A nota deve ser menor que 10!!!");
-					//verifica o limite de faltas que cabem no banco de dados
+					// verifica o limite de faltas que cabem no banco de dados
 				} else if (Integer.parseInt(txtFaltas.getText()) > 255) {
 					JOptionPane.showMessageDialog(null, "o limite para faltas é 255!!!");
-					//instacia o objeto Nota
+					// instacia o objeto Nota
 				} else {
 					Notas nota = new Notas();
 					nota.setRGM(consultRGM.getText());
@@ -724,8 +778,8 @@ public class VIEW {
 					nota.setMateria(boxDisci.getSelectedItem().toString());
 					nota.setSemestre(boxSemestre.getSelectedItem().toString());
 					nota.setNota(Float.parseFloat(String.valueOf(txtNota.getText().replace(',', '.'))));
-					
-					//salva a nota no banco de dados
+
+					// salva a nota no banco de dados
 					criaNota(nota);
 				}
 			}
@@ -735,20 +789,20 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Alterar");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//verifica se está vazio
+				// verifica se está vazio
 				if (consultRGM.getText().isEmpty() || txtFaltas.getText().isEmpty()
 						|| boxDisci.getSelectedItem().toString().isEmpty()
 						|| boxSemestre.getSelectedItem().toString().isEmpty() || txtNota.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Informe todos os dados!");
-					
-					//verifica se é maior que a nota permitida
+
+					// verifica se é maior que a nota permitida
 				} else if (Float.valueOf(txtNota.getText().replace(',', '.')) > 10) {
 					JOptionPane.showMessageDialog(null, "Nota deve ser menor que 10!");
-					//valida se é mais que o permitido no banco de dados
+					// valida se é mais que o permitido no banco de dados
 				} else if (Integer.parseInt(txtFaltas.getText()) > 255) {
 					JOptionPane.showMessageDialog(null, "o limite para faltas é 255!!!");
 				} else {
-					//instancia o objeto nota 
+					// instancia o objeto nota
 					Notas nota = new Notas();
 					nota.setRGM(consultRGM.getText());
 					nota.setFaltas(Integer.parseInt(txtFaltas.getText()));
@@ -756,7 +810,7 @@ public class VIEW {
 					nota.setSemestre(boxSemestre.getSelectedItem().toString());
 					nota.setNota(Float.parseFloat(txtNota.getText().replace(',', '.')));
 
-					//chama e executa a função que vai atualizar a nota do aluno
+					// chama e executa a função que vai atualizar a nota do aluno
 					attNota(nota);
 
 				}
@@ -768,11 +822,11 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Excluir");
 		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//verifica se está preenchido
+
+				// verifica se está preenchido
 				if (boxDisci.getSelectedItem().toString().isEmpty() || consultRGM.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Informe a matéria e o RGM que deseja excluir!");
-					//executa a query que excluirá a nota do aluno informado.
+					// executa a query que excluirá a nota do aluno informado.
 				} else {
 					String mat = boxDisci.getSelectedItem().toString();
 					String rgm_s = consultRGM.getText();
@@ -786,7 +840,7 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Consultar");
 		mntmNewMenuItem_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//aviso falando como deve ser realizada a consulta
+				// aviso falando como deve ser realizada a consulta
 				JOptionPane.showMessageDialog(null,
 						"Basta informar o RGM no campo 'RGM' em 'Notas e Faltas', caso queira todas as notas, vá até o boletim");
 			}
@@ -852,297 +906,297 @@ public class VIEW {
 		});
 		btnAtualiza_1.setBounds(410, 237, 100, 100);
 		NotasEfaltas.add(btnAtualiza_1);
-		
-				JPanel Boletim = new JPanel();
-				tabbedPane.addTab("Boletim", null, Boletim, null);
-				Boletim.setLayout(null);
-				
-						JProgressBar bar1 = new JProgressBar();
-						bar1.setMaximum(10);
-						bar1.setBounds(46, 42, 168, 20);
-						Boletim.add(bar1);
-						
-								JLabel mat1 = new JLabel("");
-								mat1.setBounds(46, 25, 221, 14);
-								Boletim.add(mat1);
-								
-										JProgressBar bar2 = new JProgressBar();
-										bar2.setMaximum(10);
-										bar2.setBounds(46, 92, 168, 20);
-										Boletim.add(bar2);
-										
-												JLabel mat2 = new JLabel("");
-												mat2.setBounds(46, 67, 221, 14);
-												Boletim.add(mat2);
-												
-														JProgressBar bar3 = new JProgressBar();
-														bar3.setMaximum(10);
-														bar3.setBounds(46, 148, 168, 20);
-														Boletim.add(bar3);
-														
-																JLabel mat3 = new JLabel("");
-																mat3.setBounds(46, 123, 221, 14);
-																Boletim.add(mat3);
-																
-																		JProgressBar bar4 = new JProgressBar();
-																		bar4.setMaximum(10);
-																		bar4.setBounds(46, 204, 168, 20);
-																		Boletim.add(bar4);
-																		
-																				JLabel mat4 = new JLabel("");
-																				mat4.setBounds(46, 179, 221, 14);
-																				Boletim.add(mat4);
-																				
-																						JProgressBar bar5 = new JProgressBar();
-																						bar5.setMaximum(10);
-																						bar5.setBounds(46, 260, 168, 20);
-																						Boletim.add(bar5);
-																						
-																								JLabel mat5 = new JLabel("");
-																								mat5.setBounds(46, 235, 221, 14);
-																								Boletim.add(mat5);
-																								
-																										JProgressBar bar6 = new JProgressBar();
-																										bar6.setMaximum(10);
-																										bar6.setBounds(46, 316, 168, 20);
-																										Boletim.add(bar6);
-																										
-																												JLabel mat6 = new JLabel("");
-																												mat6.setBounds(46, 291, 221, 14);
-																												Boletim.add(mat6);
-																												
-																														JLabel lblNewLabel_19 = new JLabel("RGM");
-																														lblNewLabel_19.setBounds(497, 11, 46, 14);
-																														Boletim.add(lblNewLabel_19);
-																														
-																																JLabel lblNewLabel_20 = new JLabel("Faltas");
-																																lblNewLabel_20.setBounds(265, 25, 46, 14);
-																																Boletim.add(lblNewLabel_20);
-																																
-																																		JLabel f1 = new JLabel("");
-																																		f1.setBounds(265, 48, 46, 14);
-																																		Boletim.add(f1);
-																																		
-																																				JLabel f2 = new JLabel("");
-																																				f2.setBounds(265, 92, 46, 14);
-																																				Boletim.add(f2);
-																																				
-																																						JLabel f3 = new JLabel("");
-																																						f3.setBounds(265, 148, 46, 14);
-																																						Boletim.add(f3);
-																																						
-																																								JLabel f4 = new JLabel("");
-																																								f4.setBounds(265, 204, 46, 14);
-																																								Boletim.add(f4);
-																																								
-																																										JLabel f5 = new JLabel("");
-																																										f5.setBounds(265, 255, 46, 14);
-																																										Boletim.add(f5);
-																																										
-																																												JLabel f6 = new JLabel("");
-																																												f6.setBounds(265, 316, 46, 14);
-																																												Boletim.add(f6);
-																																												
-																																														JLabel not1 = new JLabel("");
-																																														not1.setHorizontalAlignment(SwingConstants.CENTER);
-																																														not1.setBounds(0, 42, 46, 14);
-																																														Boletim.add(not1);
-																																														
-																																																JLabel not2 = new JLabel("");
-																																																not2.setHorizontalAlignment(SwingConstants.CENTER);
-																																																not2.setBounds(0, 92, 46, 14);
-																																																Boletim.add(not2);
-																																																
-																																																		JLabel not3 = new JLabel("");
-																																																		not3.setHorizontalAlignment(SwingConstants.CENTER);
-																																																		not3.setBounds(0, 148, 46, 14);
-																																																		Boletim.add(not3);
-																																																		
-																																																				JLabel not4 = new JLabel("");
-																																																				not4.setHorizontalAlignment(SwingConstants.CENTER);
-																																																				not4.setBounds(0, 204, 46, 14);
-																																																				Boletim.add(not4);
-																																																				
-																																																						JLabel not5 = new JLabel("");
-																																																						not5.setHorizontalAlignment(SwingConstants.CENTER);
-																																																						not5.setBounds(0, 260, 46, 14);
-																																																						Boletim.add(not5);
-																																																						
-																																																								JLabel not6 = new JLabel("");
-																																																								not6.setHorizontalAlignment(SwingConstants.CENTER);
-																																																								not6.setBounds(0, 316, 46, 14);
-																																																								Boletim.add(not6);
-																																																								
-																																																										JLabel otherSemestre = new JLabel("");
-																																																										otherSemestre.setBounds(497, 67, 129, 14);
-																																																										Boletim.add(otherSemestre);
-																																																										
-																																																												JLabel boletimNome = new JLabel("");
-																																																												boletimNome.setBounds(497, 123, 129, 14);
-																																																												Boletim.add(boletimNome);
-																																																												
-																																																														JLabel boletimCurso = new JLabel("");
-																																																														boletimCurso.setBounds(497, 92, 129, 14);
-																																																														Boletim.add(boletimCurso);
-																																																														
-																																																																otherBoletimRGM = new JTextField();
-																																																																otherBoletimRGM.setHorizontalAlignment(SwingConstants.LEFT);
-																																																																otherBoletimRGM.addFocusListener(new FocusAdapter() {
-																																																																	@Override
-																																																																	public void focusLost(FocusEvent e) {
 
-																																																																	}
-																																																																});
-																																																																
-																																																																		otherBoletimRGM.setBounds(497, 36, 86, 20);
-																																																																		Boletim.add(otherBoletimRGM);
-																																																																		otherBoletimRGM.setColumns(10);
-																																																																		
-																																																																				JButton btnNewButton_3 = new JButton("New button");
-																																																																				btnNewButton_3.addActionListener(new ActionListener() {
-																																																																					public void actionPerformed(ActionEvent e) {
-																																																																						if (otherBoletimRGM.getText().isEmpty()) {
-																																																																							JOptionPane.showMessageDialog(null, "Informe um RGM para realizar a consulta!");
-																																																																						} else {
+		JPanel Boletim = new JPanel();
+		tabbedPane.addTab("Boletim", null, Boletim, null);
+		Boletim.setLayout(null);
 
-																																																																							String rgms = otherBoletimRGM.getText();
-																																																																							try {
-																																																																								NotasDAO boletim = new NotasDAO();
-																																																																								AlunoDAO getAluno = new AlunoDAO();
+		JProgressBar bar1 = new JProgressBar();
+		bar1.setMaximum(10);
+		bar1.setBounds(46, 42, 168, 20);
+		Boletim.add(bar1);
 
-																																																																								List<Notas> notas = boletim.todasNotasDeUmAluno(rgms);
+		JLabel mat1 = new JLabel("");
+		mat1.setBounds(46, 25, 221, 14);
+		Boletim.add(mat1);
 
-																																																																								JProgressBar[] barras = { bar1, bar2, bar3, bar4, bar5, bar6 };
-																																																																								JLabel[] materias = { mat1, mat2, mat3, mat4, mat5, mat6 };
-																																																																								JLabel[] faltas = { f1, f2, f3, f4, f5, f6 };
-																																																																								JLabel[] nots = { not1, not2, not3, not4, not5, not6 };
+		JProgressBar bar2 = new JProgressBar();
+		bar2.setMaximum(10);
+		bar2.setBounds(46, 92, 168, 20);
+		Boletim.add(bar2);
 
-																																																																								Aluno a = getAluno.procurarAluno(rgms);
+		JLabel mat2 = new JLabel("");
+		mat2.setBounds(46, 67, 221, 14);
+		Boletim.add(mat2);
 
-																																																																								// pego o nome e curso do aluno vinculado ao RGM
-																																																																								boletimNome.setText(a.getNome());
-																																																																								boletimCurso.setText(a.getCurso());
+		JProgressBar bar3 = new JProgressBar();
+		bar3.setMaximum(10);
+		bar3.setBounds(46, 148, 168, 20);
+		Boletim.add(bar3);
 
-																																																																								int count = 0;
-																																																																								// Popula os elementos na tela
-																																																																								for (Notas n : notas) {
-																																																																									materias[count].setText(n.getMateria());
-																																																																									barras[count].setValue((int) n.getNota());
-																																																																									faltas[count].setText(String.valueOf(n.getFaltas()));
-																																																																									nots[count].setText(String.valueOf(n.getNota()).replace('.', ','));
+		JLabel mat3 = new JLabel("");
+		mat3.setBounds(46, 123, 221, 14);
+		Boletim.add(mat3);
 
-																																																																									// verifica se estourou o limite de faltas
-																																																																									if (n.getFaltas() > 15) {
-																																																																										faltas[count].setForeground(Color.red);
-																																																																									} else {
-																																																																										faltas[count].setForeground(Color.black);
-																																																																									}
-																																																																									// caso a nota seja maior que o mínimo e menor que o "muito bom"
-																																																																									if (n.getNota() >= 6 && n.getNota() < 8) {
-																																																																										barras[count].setForeground(Color.yellow);
-																																																																									}
-																																																																									// abaixo do mínimo
-																																																																									if (n.getNota() < 6) {
-																																																																										barras[count].setForeground(Color.red);
-																																																																									}
-																																																																									// nível "muito bom"
-																																																																									if (n.getNota() >= 8) {
-																																																																										barras[count].setForeground(Color.blue);
-																																																																									}
-																																																																									count += 1;
+		JProgressBar bar4 = new JProgressBar();
+		bar4.setMaximum(10);
+		bar4.setBounds(46, 204, 168, 20);
+		Boletim.add(bar4);
 
-																																																																								}
-																																																																								// caso não tenha todas as matérias, sistema abaixo reseta para o padrão os
-																																																																								// elementos que não serão preenchidos
-																																																																								int diferenca = 6 - count;
-																																																																								for (int i = 0; i < diferenca; i++) {
-																																																																									barras[count + i].setValue(0);
-																																																																									materias[count + i].setText(null);
-																																																																									faltas[count + i].setText(null);
-																																																																									nots[count + i].setText(null);
-																																																																								}
+		JLabel mat4 = new JLabel("");
+		mat4.setBounds(46, 179, 221, 14);
+		Boletim.add(mat4);
 
-																																																																								// mostra o semestre
-																																																																								otherSemestre.setText(notas.get(0).getSemestre());
-																																																																								
-																																																																							} catch (Exception err) {
-																																																																								mat1.setText(null);
-																																																																								bar1.setValue(0);
-																																																																								f1.setText(null);
-																																																																								mat2.setText(null);
-																																																																								bar2.setValue(0);
-																																																																								f2.setText(null);
-																																																																								mat3.setText(null);
-																																																																								bar3.setValue(0);
-																																																																								f3.setText(null);
-																																																																								mat4.setText(null);
-																																																																								bar4.setValue(0);
-																																																																								f4.setText(null);
-																																																																								mat5.setText(null);
-																																																																								bar5.setValue(0);
-																																																																								f5.setText(null);
-																																																																								mat6.setText(null);
-																																																																								bar6.setValue(0);
-																																																																								f6.setText(null);
-																																																																								otherSemestre.setText(null);
-																																																																								JOptionPane.showMessageDialog(null, "Esse aluno não tem nenhuma nota cadastrada");
-																																																																							}
+		JProgressBar bar5 = new JProgressBar();
+		bar5.setMaximum(10);
+		bar5.setBounds(46, 260, 168, 20);
+		Boletim.add(bar5);
 
-																																																																						}
-																																																																					}
-																																																																				});
-																																																																				btnNewButton_3.setBounds(593, 33, 33, 23);
-																																																																				Boletim.add(btnNewButton_3);
-																																																																				
-																																																																						JPanel ShowAlunos = new JPanel();
-																																																																						
-																																																																								tabbedPane.addTab("Listar todos alunos", null, ShowAlunos, null);
-																																																																								ShowAlunos.setLayout(null);
-																																																																								
-																																																																										JLabel cursoAluno = new JLabel("");
-																																																																										cursoAluno.setFont(new Font("Tahoma", Font.PLAIN, 16));
-																																																																										cursoAluno.setBounds(304, 43, 303, 33);
-																																																																										ShowAlunos.add(cursoAluno);
-																																																																										
-																																																																												JLabel semestreBoletim = new JLabel("");
-																																																																												semestreBoletim.setFont(new Font("Tahoma", Font.PLAIN, 16));
-																																																																												semestreBoletim.setBounds(72, 78, 261, 33);
-																																																																												ShowAlunos.add(semestreBoletim);
-																																																																												
-																																																																														JScrollPane scrollPane = new JScrollPane();
-																																																																														scrollPane.setBounds(10, 11, 635, 330);
-																																																																														ShowAlunos.add(scrollPane);
-																																																																														table_1 = new JTable(tableModel);
-																																																																														
-																																																																																table_1.getColumnModel().getColumn(0).setPreferredWidth(40);
-																																																																																table_1.getColumnModel().getColumn(2).setPreferredWidth(120);
-																																																																																table_1.getColumnModel().getColumn(4).setPreferredWidth(40);
-																																																																																table_1.getColumnModel().getColumn(5).setPreferredWidth(20);
-																																																																																
-																																																																																		scrollPane.setViewportView(table_1);
-																																																																																		
-																																																																																				ShowAlunos.addComponentListener(new ComponentAdapter() {
-																																																																																					@Override
-																																																																																					public void componentShown(ComponentEvent e) {
-																																																																																		
-																																																																																						// Mostra todos os aluno cadastrados
-																																																																																						try {
-																																																																																							AlunoDAO getAlunos = new AlunoDAO();
-																																																																																							List<Aluno> alunos = getAlunos.todosAlunos();
-																																																																																							tableModel.setRowCount(0);
-																																																																																		
-																																																																																							// RGM, Nome, Email, Curso, Campus
-																																																																																							for (Aluno aluno : alunos) {
-																																																																																								tableModel.insertRow(0, new Object[] { aluno.getRGM(), aluno.getNome(), aluno.getEmail(),
-																																																																																										aluno.getCurso(), aluno.getCampus(), aluno.getTurno() });
-																																																																																							}
-																																																																																		
-																																																																																						} catch (Exception showAlunosErr) {
-																																																																																							JOptionPane.showMessageDialog(null, showAlunosErr.getMessage());
-																																																																																						}
-																																																																																		
-																																																																																					}
-																																																																																				});
+		JLabel mat5 = new JLabel("");
+		mat5.setBounds(46, 235, 221, 14);
+		Boletim.add(mat5);
+
+		JProgressBar bar6 = new JProgressBar();
+		bar6.setMaximum(10);
+		bar6.setBounds(46, 316, 168, 20);
+		Boletim.add(bar6);
+
+		JLabel mat6 = new JLabel("");
+		mat6.setBounds(46, 291, 221, 14);
+		Boletim.add(mat6);
+
+		JLabel lblNewLabel_19 = new JLabel("RGM");
+		lblNewLabel_19.setBounds(497, 11, 46, 14);
+		Boletim.add(lblNewLabel_19);
+
+		JLabel lblNewLabel_20 = new JLabel("Faltas");
+		lblNewLabel_20.setBounds(265, 25, 46, 14);
+		Boletim.add(lblNewLabel_20);
+
+		JLabel f1 = new JLabel("");
+		f1.setBounds(265, 48, 46, 14);
+		Boletim.add(f1);
+
+		JLabel f2 = new JLabel("");
+		f2.setBounds(265, 92, 46, 14);
+		Boletim.add(f2);
+
+		JLabel f3 = new JLabel("");
+		f3.setBounds(265, 148, 46, 14);
+		Boletim.add(f3);
+
+		JLabel f4 = new JLabel("");
+		f4.setBounds(265, 204, 46, 14);
+		Boletim.add(f4);
+
+		JLabel f5 = new JLabel("");
+		f5.setBounds(265, 255, 46, 14);
+		Boletim.add(f5);
+
+		JLabel f6 = new JLabel("");
+		f6.setBounds(265, 316, 46, 14);
+		Boletim.add(f6);
+
+		JLabel not1 = new JLabel("");
+		not1.setHorizontalAlignment(SwingConstants.CENTER);
+		not1.setBounds(0, 42, 46, 14);
+		Boletim.add(not1);
+
+		JLabel not2 = new JLabel("");
+		not2.setHorizontalAlignment(SwingConstants.CENTER);
+		not2.setBounds(0, 92, 46, 14);
+		Boletim.add(not2);
+
+		JLabel not3 = new JLabel("");
+		not3.setHorizontalAlignment(SwingConstants.CENTER);
+		not3.setBounds(0, 148, 46, 14);
+		Boletim.add(not3);
+
+		JLabel not4 = new JLabel("");
+		not4.setHorizontalAlignment(SwingConstants.CENTER);
+		not4.setBounds(0, 204, 46, 14);
+		Boletim.add(not4);
+
+		JLabel not5 = new JLabel("");
+		not5.setHorizontalAlignment(SwingConstants.CENTER);
+		not5.setBounds(0, 260, 46, 14);
+		Boletim.add(not5);
+
+		JLabel not6 = new JLabel("");
+		not6.setHorizontalAlignment(SwingConstants.CENTER);
+		not6.setBounds(0, 316, 46, 14);
+		Boletim.add(not6);
+
+		JLabel otherSemestre = new JLabel("");
+		otherSemestre.setBounds(497, 67, 129, 14);
+		Boletim.add(otherSemestre);
+
+		JLabel boletimNome = new JLabel("");
+		boletimNome.setBounds(497, 123, 129, 14);
+		Boletim.add(boletimNome);
+
+		JLabel boletimCurso = new JLabel("");
+		boletimCurso.setBounds(497, 92, 129, 14);
+		Boletim.add(boletimCurso);
+
+		otherBoletimRGM = new JTextField();
+		otherBoletimRGM.setHorizontalAlignment(SwingConstants.LEFT);
+		otherBoletimRGM.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+
+			}
+		});
+
+		otherBoletimRGM.setBounds(497, 36, 86, 20);
+		Boletim.add(otherBoletimRGM);
+		otherBoletimRGM.setColumns(10);
+
+		JButton btnNewButton_3 = new JButton("New button");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (otherBoletimRGM.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Informe um RGM para realizar a consulta!");
+				} else {
+
+					String rgms = otherBoletimRGM.getText();
+					try {
+						NotasDAO boletim = new NotasDAO();
+						AlunoDAO getAluno = new AlunoDAO();
+
+						List<Notas> notas = boletim.todasNotasDeUmAluno(rgms);
+
+						JProgressBar[] barras = { bar1, bar2, bar3, bar4, bar5, bar6 };
+						JLabel[] materias = { mat1, mat2, mat3, mat4, mat5, mat6 };
+						JLabel[] faltas = { f1, f2, f3, f4, f5, f6 };
+						JLabel[] nots = { not1, not2, not3, not4, not5, not6 };
+
+						Aluno a = getAluno.procurarAluno(rgms);
+
+						// pego o nome e curso do aluno vinculado ao RGM
+						boletimNome.setText(a.getNome());
+						boletimCurso.setText(a.getCurso());
+
+						int count = 0;
+						// Popula os elementos na tela
+						for (Notas n : notas) {
+							materias[count].setText(n.getMateria());
+							barras[count].setValue((int) n.getNota());
+							faltas[count].setText(String.valueOf(n.getFaltas()));
+							nots[count].setText(String.valueOf(n.getNota()).replace('.', ','));
+
+							// verifica se estourou o limite de faltas
+							if (n.getFaltas() > 15) {
+								faltas[count].setForeground(Color.red);
+							} else {
+								faltas[count].setForeground(Color.black);
+							}
+							// caso a nota seja maior que o mínimo e menor que o "muito bom"
+							if (n.getNota() >= 6 && n.getNota() < 8) {
+								barras[count].setForeground(Color.yellow);
+							}
+							// abaixo do mínimo
+							if (n.getNota() < 6) {
+								barras[count].setForeground(Color.red);
+							}
+							// nível "muito bom"
+							if (n.getNota() >= 8) {
+								barras[count].setForeground(Color.blue);
+							}
+							count += 1;
+
+						}
+						// caso não tenha todas as matérias, sistema abaixo reseta para o padrão os
+						// elementos que não serão preenchidos
+						int diferenca = 6 - count;
+						for (int i = 0; i < diferenca; i++) {
+							barras[count + i].setValue(0);
+							materias[count + i].setText(null);
+							faltas[count + i].setText(null);
+							nots[count + i].setText(null);
+						}
+
+						// mostra o semestre
+						otherSemestre.setText(notas.get(0).getSemestre());
+
+					} catch (Exception err) {
+						mat1.setText(null);
+						bar1.setValue(0);
+						f1.setText(null);
+						mat2.setText(null);
+						bar2.setValue(0);
+						f2.setText(null);
+						mat3.setText(null);
+						bar3.setValue(0);
+						f3.setText(null);
+						mat4.setText(null);
+						bar4.setValue(0);
+						f4.setText(null);
+						mat5.setText(null);
+						bar5.setValue(0);
+						f5.setText(null);
+						mat6.setText(null);
+						bar6.setValue(0);
+						f6.setText(null);
+						otherSemestre.setText(null);
+						JOptionPane.showMessageDialog(null, "Esse aluno não tem nenhuma nota cadastrada");
+					}
+
+				}
+			}
+		});
+		btnNewButton_3.setBounds(593, 33, 33, 23);
+		Boletim.add(btnNewButton_3);
+
+		JPanel ShowAlunos = new JPanel();
+
+		tabbedPane.addTab("Listar todos alunos", null, ShowAlunos, null);
+		ShowAlunos.setLayout(null);
+
+		JLabel cursoAluno = new JLabel("");
+		cursoAluno.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		cursoAluno.setBounds(304, 43, 303, 33);
+		ShowAlunos.add(cursoAluno);
+
+		JLabel semestreBoletim = new JLabel("");
+		semestreBoletim.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		semestreBoletim.setBounds(72, 78, 261, 33);
+		ShowAlunos.add(semestreBoletim);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 635, 330);
+		ShowAlunos.add(scrollPane);
+		table_1 = new JTable(tableModel);
+
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(40);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(120);
+		table_1.getColumnModel().getColumn(4).setPreferredWidth(40);
+		table_1.getColumnModel().getColumn(5).setPreferredWidth(20);
+
+		scrollPane.setViewportView(table_1);
+
+		ShowAlunos.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+
+				// Mostra todos os aluno cadastrados
+				try {
+					AlunoDAO getAlunos = new AlunoDAO();
+					List<Aluno> alunos = getAlunos.todosAlunos();
+					tableModel.setRowCount(0);
+
+					// RGM, Nome, Email, Curso, Campus
+					for (Aluno aluno : alunos) {
+						tableModel.insertRow(0, new Object[] { aluno.getRGM(), aluno.getNome(), aluno.getEmail(),
+								aluno.getCurso(), aluno.getCampus(), aluno.getTurno() });
+					}
+
+				} catch (Exception showAlunosErr) {
+					JOptionPane.showMessageDialog(null, showAlunosErr.getMessage());
+				}
+
+			}
+		});
 
 		boxDisci.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1175,28 +1229,45 @@ public class VIEW {
 		mntmNewMenuItem_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null,
-								"Projeto MVC em Java \n" + "Integrantes do grupo: \n" 
-								+ "Gabriel Falcão G Carvalho \n"
-								+ "Victor Custodio Lucas\n"
-								+ "João Vitor de Jesus Romano \n" 
-								+ "Felipe Larrea de Souza \n" 
-								+ "Richard Henry Hartmann \n"
-								+ "Gustavo Rodrigues Lobo \n"
-								+ "Endrew Bernardo Barbosa");
+						"Projeto MVC em Java \n" + "Integrantes do grupo Lambda: \n" + "Gabriel Falcão G Carvalho \n"
+								+ "Victor Custodio Lucas\n" + "João Vitor de Jesus Romano \n"
+								+ "Felipe Larrea de Souza \n" + "Richard Henry Hartmann \n"
+								+ "Gustavo Rodrigues Lobo \n" + "Endrew Bernardo Barbosa");
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_9);
 	}
 
 	private static void criaAluno(Aluno aluno) {
+
 		try {
 			AlunoDAO dao = new AlunoDAO();
+
 			// salva o aluno
 			dao.salvar(aluno);
 			JOptionPane.showMessageDialog(null, "Salvo com Sucesso");
 
 		} catch (Exception e1) {
-			JOptionPane.showMessageDialog(null, e1.getMessage());
+			
+			//validação caso já exista informação repetida
+			if (e1.getMessage().contains("tb_aluno.PRIMARY")) {
+				JOptionPane.showMessageDialog(null, "Já tem um aluno cadastrado com esse RGM!");
+			} else if (e1.getMessage().contains("tb_aluno.email")) {
+				JOptionPane.showMessageDialog(null, "Já tem um aluno cadastrado com esse email!");
+			} else if (e1.getMessage().contains("tb_aluno.cpf")) {
+				JOptionPane.showMessageDialog(null, "Já tem um aluno cadastrado com esse cpf!");
+			} else if (e1.getMessage().contains("tb_aluno.celular")) {
+				JOptionPane.showMessageDialog(null, "Já tem um aluno cadastrado com ess número de celular!");
+			} 
+			
+			//validação de formato de data
+			if(e1.getMessage().contains("Data truncation")) {
+				JOptionPane.showMessageDialog(null, "Insira uma data válida!");
+			}else {
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+			}
+			
+
 		}
 	}
 
@@ -1207,7 +1278,10 @@ public class VIEW {
 			dao.atualizar(aluno);
 			JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
 		} catch (Exception e1) {
-			JOptionPane.showMessageDialog(null, e1.getMessage());
+			//validação de formato de data
+			if(e1.getMessage().contains("Data truncation")) {
+				JOptionPane.showMessageDialog(null, "Insira uma data válida!");
+			}
 		}
 	}
 
@@ -1232,7 +1306,7 @@ public class VIEW {
 		try {
 			AlunoDAO dao = new AlunoDAO();
 			Aluno aluno = dao.procurarAluno(rgm);
-			if(aluno == null) {
+			if (aluno == null) {
 				JOptionPane.showMessageDialog(null, "Não existe nenhum aluno cadastrado com esse RGM!");
 			}
 
@@ -1311,7 +1385,4 @@ public class VIEW {
 
 	}
 
-	private static void searchAllNotas() {
-
-	}
 }
