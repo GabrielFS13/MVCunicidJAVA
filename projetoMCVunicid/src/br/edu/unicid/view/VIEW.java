@@ -73,7 +73,7 @@ public class VIEW {
 	private void initialize() throws Exception {
 		frmAlunos = new JFrame();
 		frmAlunos.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\T-GAMER\\Pictures\\mikageee.jpg"));
-		frmAlunos.setTitle("Sistema de Alunos");
+		frmAlunos.setTitle("Sistema de Alunos Grupo Lambda");
 		frmAlunos.setBounds(100, 100, 692, 475);
 		frmAlunos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAlunos.getContentPane().setLayout(null);
@@ -568,8 +568,9 @@ public class VIEW {
 				} 
 				// roda caso todos os campos estejam preenchidos
 				else {
-
+					
 					Aluno aluno = new Aluno();
+					
 					aluno.setRGM(txtRGM.getText());
 					aluno.setNome(txtNome.getText());
 					aluno.setEmail(txtEmail.getText());
@@ -712,6 +713,7 @@ public class VIEW {
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Excluir");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				// verifica se está vazio
 				if (txtRGM.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Informe o RGM do aluno que deseja excluir!");
@@ -765,11 +767,11 @@ public class VIEW {
 					JOptionPane.showMessageDialog(null, "Informe todos os dados!");
 
 					// verifica se o valor é mais que a nota máxima permitida
-				} else if (Float.valueOf(txtNota.getText().replace(',', '.')) > 10) {
-					JOptionPane.showMessageDialog(null, "A nota deve ser menor que 10!!!");
+				} else if (Float.valueOf(txtNota.getText().replace(',', '.')) > 10 || Float.valueOf(txtNota.getText().replace(',', '.')) < 0) {
+					JOptionPane.showMessageDialog(null, "A nota deve ser menor que 10 ou menor que 0!!!!");
 					// verifica o limite de faltas que cabem no banco de dados
-				} else if (Integer.parseInt(txtFaltas.getText()) > 255) {
-					JOptionPane.showMessageDialog(null, "o limite para faltas é 255!!!");
+				} else if (Integer.parseInt(txtFaltas.getText()) > 255 || Integer.parseInt(txtFaltas.getText()) < 0) {
+					JOptionPane.showMessageDialog(null, "o limite para faltas é 255 ou menor que 0!!!");
 					// instacia o objeto Nota
 				} else {
 					Notas nota = new Notas();
@@ -796,12 +798,13 @@ public class VIEW {
 					JOptionPane.showMessageDialog(null, "Informe todos os dados!");
 
 					// verifica se é maior que a nota permitida
-				} else if (Float.valueOf(txtNota.getText().replace(',', '.')) > 10) {
-					JOptionPane.showMessageDialog(null, "Nota deve ser menor que 10!");
-					// valida se é mais que o permitido no banco de dados
-				} else if (Integer.parseInt(txtFaltas.getText()) > 255) {
-					JOptionPane.showMessageDialog(null, "o limite para faltas é 255!!!");
-				} else {
+				} else if (Float.valueOf(txtNota.getText().replace(',', '.')) > 10 || Float.valueOf(txtNota.getText().replace(',', '.')) < 0) {
+					JOptionPane.showMessageDialog(null, "A nota deve ser menor que 10 ou menor que 0!!!!");
+					// verifica o limite de faltas que cabem no banco de dados
+				} else if (Integer.parseInt(txtFaltas.getText()) > 255 || Integer.parseInt(txtFaltas.getText()) < 0) {
+					JOptionPane.showMessageDialog(null, "o limite para faltas é 255 ou menor que 0!!!");
+					// instacia o objeto Nota
+				}else {
 					// instancia o objeto nota
 					Notas nota = new Notas();
 					nota.setRGM(consultRGM.getText());
@@ -852,12 +855,12 @@ public class VIEW {
 			public void actionPerformed(ActionEvent e) {
 
 				if (consultRGM.getText().isEmpty() || txtFaltas.getText().isEmpty()
-						|| boxDisci.getSelectedItem().toString().isEmpty()
-						|| boxSemestre.getSelectedItem().toString().isEmpty() || txtNota.getText().isEmpty()) {
+						|| boxDisci.getSelectedIndex() == 0
+						|| boxSemestre.getSelectedIndex() == 0  || txtNota.getText().isEmpty()) {
 
 					JOptionPane.showMessageDialog(null, "Informe todos os dados!");
 
-				} else if (Float.valueOf(txtNota.getText().replace(',', '.')) > 10) {
+				}else if (Float.valueOf(txtNota.getText().replace(',', '.')) > 10) {
 					JOptionPane.showMessageDialog(null, "A nota deve ser menor que 10!!!");
 				} else if (Integer.parseInt(txtFaltas.getText()) > 255) {
 					JOptionPane.showMessageDialog(null, "o limite para faltas é 255!!!");
